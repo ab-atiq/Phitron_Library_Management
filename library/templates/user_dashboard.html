@@ -1,39 +1,103 @@
 {% extends 'home.html' %}
 {% block title %}{{ user.username }}{% endblock %}
 {% block content %}
-    <h1>Welcome, {{ user.username }}!</h1>
-    <h2>Reservations</h2>
-    <ul>
-        {% for reservation in user_reservations %}
-            <li>
-                <strong>{{ reservation.book.title }}</strong> by {{ reservation.book.author }}
-                <br>
-                ISBN: {{ reservation.book.isbn }}
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>Borrowings</h2>
-    <ul>
-        {% for borrowing in user_borrowings %}
-            <li>
-                <strong>{{ borrowing.book.title }}</strong> by {{ borrowing.book.author }}
-                <br>
-                ISBN: {{ borrowing.book.isbn }}
-                <br>
-                <a href="{% url 'return_book' borrowing.id %}">Return Book</a>
-            </li>
-        {% endfor %}
-    </ul>
-    <h2>Fines</h2>
-    <ul>
-        {% for fine in user_fines %}
-            <li>{{ fine.borrowing.book.title }} - Fine Amount: ${{ fine.fine_amount }}</li>
-        {% endfor %}
-    </ul>
-    <h2>WishList</h2>
-    <ul>
-        {% for wishlist in user_wishlist %}
-            <li><a href="/book/search/?query={{ wishlist.book.title }}">{{ wishlist.book.title }}</a></li>
-        {% endfor %}
-    </ul>
+<div class="container">
+    <h2 class="text-center">Reservations</h2>
+    {%if not user_reservations%}
+    <h3 class="text-danger">Yor have no reservation books</h3>
+    {%else%}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Book Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reservation in user_reservations %}
+            <tr>
+                <th scope="row">{{ reservation.book.title }}</th>
+                <td>{{ reservation.book.author }}</td>
+                <td>{{ reservation.book.isbn }}</td>
+                <td>{{reservation.book.genre}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+    <h2 class="text-center">Borrowings</h2>
+    {%if not user_borrowings%}
+    <h3 class="text-danger">Borrowing books are not availabe</h3>
+    {%else%}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Book Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Genre</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for borrowing in user_borrowings %}
+            <tr>
+                <th scope="row">{{ borrowing.book.title }}</th>
+                <td>{{ borrowing.book.author }}</td>
+                <td>{{ borrowing.book.isbn }}</td>
+                <td>{{borrowing.book.genre}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+    <h2 class="text-center">Fines</h2>
+    {%if not user_fines%}
+    <h1>You have no fines</h1>
+    {%else%}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Book Fine</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for fine in user_fines %}
+            <tr>
+                <th scope="row">${{ fine.fine_amount}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+    <h2 class="text-center">WishList</h2>
+    {%if not user_wishlist%}
+    <h3 class="text-danger">Borrowing books are not availabe</h3>
+    {%else%}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col">Book Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">ISBN</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Search</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for wishlist in user_wishlist %}
+            <tr>
+                <th scope="row">{{ wishlist.book.title }}</th>
+                <td>{{ wishlist.book.author }}</td>
+                <td>{{ wishlist.book.isbn }}</td>
+                <td>{{wishlist.book.genre}}</td>
+                <td><a href="/book/search/?query={{ wishlist.book.title }}">{{ wishlist.book.title }}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+</div>
 {% endblock %}

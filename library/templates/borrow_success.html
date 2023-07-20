@@ -1,7 +1,10 @@
 {% extends 'home.html' %}
 {% block title %}Borrow Success{% endblock title %}
 {% block content %}
-    <h1>Borrow Success</h1>
+<div class="text-center">
+    <h1 class="text-success">Borrow Success</h1>
     <p>You have successfully borrowed "{{ book.title }}".</p>
-    <p>Return the book by: {{ due_date }}</p>
+    <p class="text-warning ">Return the book within {{ due_date }}</p>
+    <a href="{% url 'user_dashboard'%}" class="btn btn-primary">Dashboard</a>
+</div>
 {% endblock content %}

@@ -31,3 +31,4 @@ class CustomUserAdmin(UserAdmin):
 admin.site.register(models.Borrowing)
 admin.site.register(models.Fine)
 admin.site.register(models.Reservation)
+admin.site.register(models.WishList)

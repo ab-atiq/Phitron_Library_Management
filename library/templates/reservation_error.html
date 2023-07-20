@@ -1,6 +1,9 @@
 {% extends 'home.html' %}
 {% block title %}Reservation Unsuccessful{% endblock %}
 {% block content %}
-    <h1>Reservation Unsuccessful</h1>
+<div class="text-center">
+    <h1 class="text-danger">Reservation Unsuccessful</h1>
     <p>{{ message }}</p>
+    <a href="{% url 'user_dashboard'%}" class="btn btn-primary">Dashboard</a>
+</div>
 {% endblock %}

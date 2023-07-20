@@ -2,38 +2,68 @@
 
 {% block title %}Book Search{% endblock title %}
 {% block content %}
-    <h1>Book Search</h1>
+<div class="container-sm text-center mt-3">
+    <h1 class="text-center mt-3">Book Search</h1>
+    <h5 class="text-bold"> by book title, author, genre, or ISBN.</h5>
     <form method="get">
-        <input type="text" name="query" placeholder="Search by title">
-        <button type="submit">Search</button>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="query"
+                placeholder="Search by title">
+            <button type="submit" class="btn btn-outline-secondary">Search</button>
+        </div>
     </form>
     {% if query %}
-        <p>Search results for <strong>{{ query }}</strong></p>
-
+    <p>Search results for <strong>{{ query }}</strong></p>
     {% endif %}
-    <ul>
+</div>
+
+<div class="container mt-3">
+    <div class="row row-cols-3">
         {% for book in books %}
-            <li>
-                <strong>{{ book.title }}</strong> by {{ book.author }}
-                <br>
-                ISBN: {{ book.isbn }}
-                <br>
-                {% if book.no_of_books_available == 0 %}
-                    <p>Out of stock</p>
-                    <a href="{% url 'book_reservation' book.id %}">Reserve</a>
-                {% else %}
-                    <p>Available books: {{ book.no_of_books_available }}</p>
-                    <a href="{% url 'borrow_book' book.id %}">Borrow</a>
-                {% endif %}
-                <a href="{% url 'add_to_wishlist' book.id %}">Add to Wishlist</a>
-            </li>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">{{ book.title }}</h5>
+                    <p class="card-text">by {{ book.author }}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"> ISBN: {{ book.isbn }}</li>
+                    <li class="list-group-item"> Genre: {{ book.genre }}
+                    </li>
+                    <li class="list-group-item">
+                        {% if book.no_of_books_available == 0 %}
+                        <p class="text-danger">Available books: Out of
+                            stock</p>
+                        {% else %}
+                        <p>
+                            Available books: {{ book.no_of_books_available }}
+                        </p>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        {% if book.no_of_books_available == 0 %}
+                        <a class="btn btn-warning"
+                            href="{% url 'book_reservation' book.id %}">Reserve</a>
+                        {% else %}
+                        <a class="btn btn-primary"
+                            href="{% url 'borrow_book' book.id %}">Borrow</a>
+                        {% endif %}
+                        <a class="btn btn-info"
+                            href="{% url 'add_to_wishlist' book.id %}">Add
+                            to
+                            Wishlist</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         {% endfor %}
-    </ul>
-    <script>
+    </div>
+</div>
+<script>
         const search_query = document.querySelector('input[name="query"]');
         const button = document.querySelector('button[type="submit"]');
         button.addEventListener('onclick', function (e) {
             window.location.href = '/search/' + search_query.value;
         });
-    </script>
+</script>
 {% endblock content %}

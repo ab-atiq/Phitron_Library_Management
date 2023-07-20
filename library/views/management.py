@@ -10,7 +10,7 @@ from library.models import Book, Reservation, Borrowing, Fine, WishList
 
 def book_search(request):
     query = request.GET.get('query') or ''
-    query = Q(title__icontains=query) | Q(author__icontains=query) | Q(isbn__icontains=query)
+    query = Q(title__icontains=query) | Q(author__icontains=query) | Q(isbn__icontains=query) | Q(genre__icontains=query)
     books = Book.objects.filter(query)
     return render(request, 'book_search.html', {'books': books, 'query': request.GET.get('query', '')})
 

@@ -1,6 +1,9 @@
 {% extends 'home.html' %}
 {% block title %}Reservation Success{% endblock %}
 {% block content %}
-    <h1>Reservation Success</h1>
-    <p>You have successfully reserved "{{ book.title }}".</p>
+    <div class="text-center">
+        <h1 class="text-success">Reservation Success</h1>
+        <p>You have successfully reserved "{{ book.title }}".</p>
+        <a href="{% url 'user_dashboard'%}" class="btn btn-primary">Dashboard</a>
+    </div>
 {% endblock %}
