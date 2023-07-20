@@ -2,7 +2,7 @@
 {% block title %}{{ user.username }}{% endblock %}
 {% block content %}
 <div class="container">
-    <h2 class="text-center">Reservations</h2>
+    <!-- <h2 class="text-center">Reservations</h2>
     {%if not user_reservations%}
     <h3 class="text-danger">Yor have no reservation books</h3>
     {%else%}
@@ -26,7 +26,7 @@
             {% endfor %}
         </tbody>
     </table>
-    {%endif%}
+    {%endif%} -->
     <h2 class="text-center">Borrowings</h2>
     {%if not user_borrowings%}
     <h3 class="text-danger">Borrowing books are not availabe</h3>
@@ -38,6 +38,7 @@
                 <th scope="col">Author</th>
                 <th scope="col">ISBN</th>
                 <th scope="col">Genre</th>
+                <th scope="col">Action</th>
             </tr>
         </thead>
         <tbody>
@@ -47,6 +48,7 @@
                 <td>{{ borrowing.book.author }}</td>
                 <td>{{ borrowing.book.isbn }}</td>
                 <td>{{borrowing.book.genre}}</td>
+                <td><a href="">Return Book</a></td>
             </tr>
             {% endfor %}
         </tbody>

@@ -60,7 +60,7 @@ def return_book(request, borrowing_id):
     book.no_of_books_available += 1
     book.save()
     borrowing.delete()
-    # TODO: Send email to user
+    # Send email to user who reserve that book
     for reserve in Reservation.objects.filter(book=book):
         reserved_user = reserve.user
         send_mail(
