@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Welcome, Admin!</h1>
+    <h2>All Books</h2>
+    <ul>
+        {% for book in all_books %}
+        <li>{{ book.title }} - Availability: {% if book.availability %}Available{% else %}Not Available{% endif %}</li>
+        {% endfor %}
+    </ul>
+    <h2>All Reservations</h2>
+    <ul>
+        {% for reservation in all_reservations %}
+        <li>{{ reservation.user.username }} - {{ reservation.book.title }}</li>
+        {% endfor %}
+    </ul>
+    <h2>All Borrowings</h2>
+    <ul>
+        {% for borrowing in all_borrowings %}
+        <li>{{ borrowing.user.username }} - {{ borrowing.book.title }} - Due Date: {{ borrowing.due_date }}</li>
+        {% endfor %}
+    </ul>
+    <h2>All Fines</h2>
+    <ul>
+        {% for fine in all_fines %}
+        <li>{{ fine.user.username }} - {{ fine.borrowing.book.title }} - Fine Amount: ${{ fine.fine_amount }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

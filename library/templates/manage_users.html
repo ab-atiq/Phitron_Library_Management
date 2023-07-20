@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Users</title>
+</head>
+<body>
+    <h1>Manage Users</h1>
+    <ul>
+        {% for user in all_users %}
+        <li>{{ user.username }}
+            <a href="{% url 'edit_user' user.id %}">Edit</a>
+            <a href="{% url 'delete_user' user.id %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{% extends 'home.html' %}
+{% block title %}Borrow Success{% endblock title %}
+{% block content %}
+    <h1>Borrow Success</h1>
+    <p>You have successfully borrowed "{{ book.title }}".</p>
+    <p>Return the book by: {{ due_date }}</p>
+{% endblock content %}

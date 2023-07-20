@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Books</title>
+</head>
+<body>
+    <h1>Manage Books</h1>
+    <ul>
+        {% for book in all_books %}
+        <li>{{ book.title }} - Availability: {% if book.availability %}Available{% else %}Not Available{% endif %}
+            <a href="{% url 'edit_book' book.id %}">Edit</a>
+            <a href="{% url 'delete_book' book.id %}">Delete</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

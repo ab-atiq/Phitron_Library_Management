@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+{% block title %}{{ user.username }}{% endblock %}
+{% block content %}
+    <h1>Welcome, {{ user.username }}!</h1>
+    <h2>Reservations</h2>
+    <ul>
+        {% for reservation in user_reservations %}
+            <li>
+                <strong>{{ reservation.book.title }}</strong> by {{ reservation.book.author }}
+                <br>
+                ISBN: {{ reservation.book.isbn }}
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Borrowings</h2>
+    <ul>
+        {% for borrowing in user_borrowings %}
+            <li>
+                <strong>{{ borrowing.book.title }}</strong> by {{ borrowing.book.author }}
+                <br>
+                ISBN: {{ borrowing.book.isbn }}
+                <br>
+                <a href="{% url 'return_book' borrowing.id %}">Return Book</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <h2>Fines</h2>
+    <ul>
+        {% for fine in user_fines %}
+            <li>{{ fine.borrowing.book.title }} - Fine Amount: ${{ fine.fine_amount }}</li>
+        {% endfor %}
+    </ul>
+    <h2>WishList</h2>
+    <ul>
+        {% for wishlist in user_wishlist %}
+            <li><a href="/book/search/?query={{ wishlist.book.title }}">{{ wishlist.book.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

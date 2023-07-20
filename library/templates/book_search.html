@@ -1,0 +1,39 @@
+{% extends 'home.html' %}
+
+{% block title %}Book Search{% endblock title %}
+{% block content %}
+    <h1>Book Search</h1>
+    <form method="get">
+        <input type="text" name="query" placeholder="Search by title">
+        <button type="submit">Search</button>
+    </form>
+    {% if query %}
+        <p>Search results for <strong>{{ query }}</strong></p>
+
+    {% endif %}
+    <ul>
+        {% for book in books %}
+            <li>
+                <strong>{{ book.title }}</strong> by {{ book.author }}
+                <br>
+                ISBN: {{ book.isbn }}
+                <br>
+                {% if book.no_of_books_available == 0 %}
+                    <p>Out of stock</p>
+                    <a href="{% url 'book_reservation' book.id %}">Reserve</a>
+                {% else %}
+                    <p>Available books: {{ book.no_of_books_available }}</p>
+                    <a href="{% url 'borrow_book' book.id %}">Borrow</a>
+                {% endif %}
+                <a href="{% url 'add_to_wishlist' book.id %}">Add to Wishlist</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <script>
+        const search_query = document.querySelector('input[name="query"]');
+        const button = document.querySelector('button[type="submit"]');
+        button.addEventListener('onclick', function (e) {
+            window.location.href = '/search/' + search_query.value;
+        });
+    </script>
+{% endblock content %}
