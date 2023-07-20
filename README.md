@@ -1,4 +1,5 @@
 # Phitron_Library_Management
 
-Admin user name: admin
+Admin \
+User name: admin\
 Password: 12345
