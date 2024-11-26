@@ -1,4 +1,4 @@
-# Phitron_Library_Management
+# Library Management Django Project
 
 Admin \
 User name: admin\
